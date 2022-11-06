@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Hangman{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<article class="post">
+    <header>
+        <div>
+            {% if post['winlose'] != "" %}
+            <h1>{{ post['winlose'] }}</h1>
+            {% endif %}
+
+            <h2 style="letter-spacing: 6px;">{{ post['user_current'] }} ({{ post['wordlength'] }} letters)</h2>
+            <div style="white-space: pre-wrap;">{{ post['hangman'] }}</div>
+        </div>
+    </header>
+</article>
+
+<form method="post">
+    <label for="letter">Enter a letter:
+    <input onkeydown="return /[a-z]/i.test(event.key)" style="width: 10px;" name="letter" id="letter" maxlength="1" size="30" required>
+    </label>
+
+    <input type="hidden" id="word" name="word" value="{{ post['word'] }}">
+    <input type="hidden" id="user_current" name="user_current" value="{{ post['user_current'] }}">
+    <!-- <input type="hidden" id="hangman" name="hangman" value="{{ post['hangman'] }}"> -->
+    <input type="hidden" id="user_wrongs" name="user_wrongs" value="{{ post['user_wrongs'] }}">
+    <input type="hidden" id="winlose" name="winlose" value="{{ post['winlose'] }}">
+    <input type="hidden" id="wordlength" name="wordlength" value="{{ post['wordlength'] }}">
+
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}
